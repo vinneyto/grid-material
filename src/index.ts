@@ -1,28 +1,42 @@
 import { createRenderer, resizeRendererToDisplaySize } from './util';
 import { routes } from './routes';
+import { Demo } from './demo/Demo';
 
-const demoName =
-  new URLSearchParams(window.location.search).get('demo') || 'box';
+const demoName = new URLSearchParams(window.location.search).get('demo');
 
-const createDemo = routes.get(demoName);
+if (demoName === null) {
+  for (const routeName of routes.keys()) {
+    const a = document.createElement('a');
+    a.innerHTML = routeName;
+    a.href = `/?demo=${routeName}`;
+    document.body.appendChild(a);
+    document.body.appendChild(document.createElement('br'));
+  }
+} else {
+  const createDemo = routes.get(demoName);
 
-if (createDemo === undefined) {
-  const msg = 'demo is not found';
-  alert(msg);
-  throw new Error(msg);
-}
-
-const renderer = createRenderer();
-const demo = createDemo();
-
-const render = () => {
-  if (resizeRendererToDisplaySize(renderer)) {
-    demo.resize(renderer);
+  if (createDemo === undefined) {
+    const msg = 'demo is not found';
+    alert(msg);
+    throw new Error(msg);
   }
 
-  demo.render(renderer);
+  start(createDemo);
+}
 
-  requestAnimationFrame(render);
-};
+function start(createDemo: () => Demo) {
+  const renderer = createRenderer();
+  const demo = createDemo();
 
-render();
+  const render = () => {
+    if (resizeRendererToDisplaySize(renderer)) {
+      demo.resize(renderer);
+    }
+
+    demo.render(renderer);
+
+    requestAnimationFrame(render);
+  };
+
+  render();
+}
