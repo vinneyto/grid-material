@@ -14,9 +14,9 @@ void main() {
   float masterY = mod(y, lineStep * 10.0);
 
   if (masterX < lineWidth || masterY < lineWidth) {
-    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.2);
+    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.5);
   } else if (regularX < lineWidth || regularY < lineWidth) {
-    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);
+    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.2);
   } else {
     gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
   }

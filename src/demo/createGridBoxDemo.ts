@@ -29,6 +29,13 @@ export function createGridBoxDemo(): Demo {
   box.position.x = -0.07;
   scene.add(box);
 
+  box.add(
+    new Mesh(
+      new SphereGeometry(0.03, 32, 32),
+      new MeshLambertMaterial({ color: 'red' })
+    )
+  );
+
   const sphereGeometry = new SphereGeometry(0.03, 32, 32);
   const sphereMaterial = gridMaterial;
   const sphere = new Mesh(sphereGeometry, sphereMaterial);
