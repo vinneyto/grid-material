@@ -3,18 +3,17 @@ import {
   PerspectiveCamera,
   Scene,
   PointLight,
-  WebGLRenderer,
-  MeshPhysicalMaterial,
   BoxGeometry,
   Mesh,
   SphereGeometry,
   MeshLambertMaterial
 } from 'three';
 import { CameraController } from '../CameraController';
-import { resizePerspectiveCamera } from '../util';
+import { createRenderer, resizeRenderer } from '../util';
 import { GridMaterial } from '../materials/GridMaterial';
 
 export function createGridBoxDemo(): Demo {
+  const renderer = createRenderer();
   const camera = new PerspectiveCamera(75, 1, 0.01, 0.8);
   const cameraController = new CameraController(0.3, 0.01);
   const scene = new Scene();
@@ -45,10 +44,9 @@ export function createGridBoxDemo(): Demo {
   const light = new PointLight();
   scene.add(light);
 
-  const resize = (renderer: WebGLRenderer) =>
-    resizePerspectiveCamera(renderer, camera);
+  const render = () => {
+    resizeRenderer(renderer, camera);
 
-  const render = (renderer: WebGLRenderer) => {
     light.position.copy(camera.position);
     cameraController.update(camera);
 
@@ -59,8 +57,5 @@ export function createGridBoxDemo(): Demo {
     renderer.render(scene, camera);
   };
 
-  return {
-    resize,
-    render
-  };
+  return { render };
 }

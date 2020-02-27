@@ -8,6 +8,8 @@
 
 [threejsfundamentals](https://threejsfundamentals.org/)
 
+[webglfundamentals](https://webglfundamentals.org/)
+
 [shadertoy](https://www.shadertoy.com/)
 
 [glTF](https://github.com/KhronosGroup/glTF)

@@ -1,11 +1,4 @@
-import {
-  WebGLRenderer,
-  Color,
-  BoxGeometry,
-  MeshPhysicalMaterial,
-  Mesh,
-  PerspectiveCamera
-} from 'three';
+import { WebGLRenderer, Color, PerspectiveCamera } from 'three';
 
 export function createRenderer() {
   const renderer = new WebGLRenderer({ antialias: true });
@@ -26,7 +19,9 @@ export function resizeRendererToDisplaySize(renderer: WebGLRenderer) {
   const canvas = renderer.domElement;
   const width = canvas.clientWidth;
   const height = canvas.clientHeight;
-  const needResize = canvas.width !== width || canvas.height !== height;
+  const needResize =
+    canvas.width !== width * devicePixelRatio ||
+    canvas.height !== height * devicePixelRatio;
   if (needResize) {
     renderer.setSize(width, height, false);
   }
@@ -40,4 +35,13 @@ export function resizePerspectiveCamera(
   const canvas = renderer.domElement;
   camera.aspect = canvas.clientWidth / canvas.clientHeight;
   camera.updateProjectionMatrix();
+}
+
+export function resizeRenderer(
+  renderer: WebGLRenderer,
+  camera: PerspectiveCamera
+) {
+  if (resizeRendererToDisplaySize(renderer)) {
+    resizePerspectiveCamera(renderer, camera);
+  }
 }

@@ -25,15 +25,10 @@ if (demoName === null) {
 }
 
 function start(createDemo: () => Demo) {
-  const renderer = createRenderer();
   const demo = createDemo();
 
   const render = () => {
-    if (resizeRendererToDisplaySize(renderer)) {
-      demo.resize(renderer);
-    }
-
-    demo.render(renderer);
+    demo.render();
 
     requestAnimationFrame(render);
   };
